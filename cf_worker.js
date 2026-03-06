@@ -50,18 +50,11 @@ function buildUpstreamHeaders(request, url, headersParam) {
     if (referer) {
         let refStr = decodeURIComponent(referer);
 
-        if (url.hostname.includes('kwik') || url.hostname.includes('kwics')) {
+        if (url.hostname.includes('megaup') || url.hostname.includes('shop21pro')) {
             refStr = CONFIG.ANIMEKAI_BASE;
             if (!refStr.endsWith('/')) refStr += '/';
-        } else if (url.hostname.includes('owocdn') || url.hostname.includes('cdn')) {
-            if (!refStr.includes('kwik.cx')) {
-                refStr = CONFIG.DEFAULT_REFERER;
-            }
         }
 
-        if (refStr.includes('kwik.cx') && !refStr.endsWith('/')) {
-            refStr += '/';
-        }
         headers.set('referer', refStr);
 
         try {
@@ -71,7 +64,7 @@ function buildUpstreamHeaders(request, url, headersParam) {
         }
     }
 
-    if (url.hostname.includes('owocdn')) {
+    if (url.hostname.includes('megaup') || url.hostname.includes('shop21pro')) {
         headers.set('Sec-Fetch-Dest', 'iframe');
         headers.set('Sec-Fetch-Mode', 'navigate');
         headers.set('Sec-Fetch-Site', 'cross-site');
@@ -229,8 +222,8 @@ export default {
 
                 const isSegment = targetUrl.pathname.toLowerCase().endsWith(".ts") ||
                     targetUrl.pathname.toLowerCase().endsWith(".m4s") ||
-                    targetUrl.hostname.includes('owocdn') ||
-                    targetUrl.hostname.includes('kwik');
+                    targetUrl.hostname.includes('megaup') ||
+                    targetUrl.hostname.includes('shop21pro');
 
                 if (isSegment) {
                     responseHeaders.set('Content-Type', 'video/mp2t');

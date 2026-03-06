@@ -65,17 +65,9 @@ function buildUpstreamHeaders(req, url, headersParam) {
         let refStr = decodeURIComponent(referer);
 
         // Dynamic referer logic based on target URL
-        if (url.hostname.includes('kwik') || url.hostname.includes('kwics')) {
+        if (url.hostname.includes('megaup') || url.hostname.includes('shop21pro')) {
             refStr = CONFIG.ANIMEKAI_BASE;
             if (!refStr.endsWith('/')) refStr += '/';
-        } else if (url.hostname.includes('owocdn') || url.hostname.includes('cdn')) {
-            if (!refStr.includes('kwik.cx')) {
-                refStr = CONFIG.DEFAULT_REFERER;
-            }
-        }
-
-        if (refStr.includes('kwik.cx') && !refStr.endsWith('/')) {
-            refStr += '/';
         }
         headers['referer'] = refStr;
 
@@ -86,7 +78,7 @@ function buildUpstreamHeaders(req, url, headersParam) {
         }
     }
 
-    if (url.hostname.includes('owocdn')) {
+    if (url.hostname.includes('megaup') || url.hostname.includes('shop21pro')) {
         headers['Sec-Fetch-Dest'] = 'iframe';
         headers['Sec-Fetch-Mode'] = 'navigate';
         headers['Sec-Fetch-Site'] = 'cross-site';
